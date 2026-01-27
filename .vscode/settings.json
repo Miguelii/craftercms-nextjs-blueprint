@@ -1,0 +1,6 @@
+{
+    "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+        "@craftercms/experience-builder/react/RenderField",
+        "@craftercms/experience-builder/react/ExperienceBuilder"
+    ]
+}

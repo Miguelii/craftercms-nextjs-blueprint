@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+:root {
+    --background: #fbfbfd;
+    --primary: #262626;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-primary: var(--primary);
+    --font-sans: var(--font-geist-sans);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-background font-sans antialiased text-primary;
+}

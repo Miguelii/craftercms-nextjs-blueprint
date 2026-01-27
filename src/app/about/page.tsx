@@ -1,19 +1,18 @@
-import { getModel } from '@/lib/crafter-api'
-import RenderField from '@/components/craftercms/render-field'
 import ExperienceBuilder from '@/components/craftercms/experience-builder'
-import HomeContent from '@/components/home-content'
+import RenderField from '@/components/craftercms/render-field'
 import { CMSModelPath } from '@/lib/constants'
+import { getModel } from '@/lib/crafter-api'
 
 export const dynamic = 'force-dynamic'
 
-type Props = PageProps<'/'>
+type Props = PageProps<'/about'>
 
-export default async function Home(props: Props) {
-    const model = await getModel(CMSModelPath.HOME_PAGE)
+export default async function AboutPage(props: Props) {
+    const model = await getModel(CMSModelPath.ABOUT_PAGE)
 
     return (
         <ExperienceBuilder model={model}>
-            <main className="flex flex-col gap-10 container mx-auto items-center w-full px-5 sm:px-0 mt-10 h-full justify-center">
+            <main className="flex container mx-auto items-center w-full px-5 sm:px-0 mt-10 h-full justify-center">
                 <RenderField
                     model={model!}
                     fieldId="title_s"
@@ -22,7 +21,6 @@ export default async function Home(props: Props) {
                         className: 'text-2xl font-bold w-full text-center',
                     }}
                 />
-                <HomeContent model={model!} />
             </main>
         </ExperienceBuilder>
     )

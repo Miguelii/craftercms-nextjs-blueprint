@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CrafterCMS Next.js Blueprint
+
+This project is a migration of the official [CrafterCMS Next.js Blueprint](https://github.com/craftercms/nextjs-blueprint/tree/master/app) to an updated Next.js code.
+
+## Migration Improvements
+
+- Upgraded to **Next.js 16** with App Router and Server-Side Rendering (SSR)
+- Upgraded to **React 19** with React Compiler
+- Fully rewritten in **TypeScript**
+- Added **Tailwind CSS v4**
+- Added **T3 Env** for type-safe environment variables
+- Added dynamic sitemap generation (`sitemap.ts`)
+- Multiple code and performance improvements
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install CrafterCMS
+
+See https://craftercms.com/download
+
+### 2. Create a new Studio project
+
+In CrafterCMS Studio create a new project and select the **Next.js Blueprint** from the public marketplace.
+
+### 3. Clone the craftercms-nextjs-example Repository
+
+### 4. Install dependencies with pnpm
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 5. Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The project includes an example environment file: `.env.example.`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create your own `.env` file by copying the example file:
 
-## Learn More
+```bash
+cp .env.example .env
+```
 
-To learn more about Next.js, take a look at the following resources:
+Then update the values accordingly:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**NEXT_PUBLIC_HOST**  
+The URL of your Next.js application (default: `http://localhost:3000`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**NEXT_PUBLIC_CRAFTERCMS_HOST_NAME**  
+The URL of your CrafterCMS instance (default: `http://localhost:8080`)
 
-## Deploy on Vercel
+**NEXT_PUBLIC_CRAFTERCMS_SITE_NAME**  
+The name of the site created in CrafterCMS Studio
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**NEXT_PUBLIC_PREVIEW_TOKEN**  
+The preview token generated in CrafterCMS Studio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 6. Run Development Server with pnpm
+
+```bash
+pnpm dev
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
