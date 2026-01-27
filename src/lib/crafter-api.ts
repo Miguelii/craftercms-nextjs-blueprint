@@ -3,9 +3,9 @@ import { cache } from 'react'
 import { firstValueFrom, map } from 'rxjs'
 import getCrafterConfig from './get-crafter-config'
 import type { ContentInstance, CrafterConfig, NavigationItem } from '@craftercms/models'
-import { CMSModelPath } from '@/lib/constants'
+import { ModelPathEnum } from '@/lib/constants'
 
-type CrafterPath = CMSModelPath | `/site/website/${string}/index.xml`
+type CrafterPath = ModelPathEnum | `/site/website/${string}/index.xml`
 
 /**
  * `flatten` is required for correct API behavior but is missing from the

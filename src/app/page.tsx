@@ -2,14 +2,14 @@ import { getModel } from '@/lib/crafter-api'
 import RenderField from '@/components/craftercms/render-field'
 import ExperienceBuilder from '@/components/craftercms/experience-builder'
 import HomeContent from '@/components/home-content'
-import { CMSModelPath } from '@/lib/constants'
+import { ModelPathEnum } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
 
 type Props = PageProps<'/'>
 
 export default async function Home(props: Props) {
-    const model = await getModel(CMSModelPath.HOME_PAGE)
+    const model = await getModel(ModelPathEnum.HOME_PAGE)
 
     return (
         <ExperienceBuilder model={model}>
