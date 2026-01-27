@@ -1,4 +1,4 @@
-export enum CMSModelPath {
+export enum ModelPathEnum {
     HOME_PAGE = '/site/website/index.xml',
     ABOUT_PAGE = '/site/website/about/index.xml',
     FOOTER_COMPONENT = '/site/components/footer.xml',

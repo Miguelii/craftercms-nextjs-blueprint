@@ -1,10 +1,10 @@
-import { CMSModelPath } from '@/lib/constants'
+import { ModelPathEnum } from '@/lib/constants'
 import { getModel } from '@/lib/crafter-api'
 import FooterCopyRight from './footer-copyright'
 import ExperienceBuilder from '../craftercms/experience-builder'
 
 export default async function Footer() {
-    const model = await getModel(CMSModelPath.FOOTER_COMPONENT)
+    const model = await getModel(ModelPathEnum.FOOTER_COMPONENT)
 
     return (
         <ExperienceBuilder model={model}>
