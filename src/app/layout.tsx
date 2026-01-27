@@ -29,10 +29,10 @@ type Props = LayoutProps<'/'>
 export default async function RootLayout({ children }: Props) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} min-h-screen`}>
+            <body className={`${geistSans.variable} min-h-screen flex flex-col`}>
                 <AuthoringProvider>
                     <Header />
-                    <div className="min-h-[calc(100vh-104px)] w-full h-full">{children}</div>
+                    <div className="flex-1 w-full">{children}</div>
                     <Footer />
                 </AuthoringProvider>
             </body>
