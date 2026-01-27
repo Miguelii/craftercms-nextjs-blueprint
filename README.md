@@ -22,7 +22,7 @@ See https://craftercms.com/download
 
 In CrafterCMS Studio create a new project and select the **Next.js Blueprint** from the public marketplace.
 
-### 3. Clone the craftercms-nextjs-example Repository
+### 3. Clone this repository
 
 ### 4. Install dependencies with pnpm
 
@@ -62,4 +62,4 @@ pnpm dev
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to open a PR or a issue.
