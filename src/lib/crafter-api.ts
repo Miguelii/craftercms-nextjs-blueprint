@@ -2,21 +2,21 @@ import { parseDescriptor, getItem, getNavTree } from '@craftercms/content'
 import { cache } from 'react'
 import { firstValueFrom, map } from 'rxjs'
 import getCrafterConfig from './get-crafter-config'
-import type { CrafterConfig, NavigationItem } from '@craftercms/models'
+import type { ContentInstance, CrafterConfig, NavigationItem } from '@craftercms/models'
 import { CMSModelPath } from '@/lib/constants'
 
-type ModelPathType = CMSModelPath | `/site/website/${string}/index.xml`
+type CrafterPath = CMSModelPath | `/site/website/${string}/index.xml`
 
 /**
  * `flatten` is required for correct API behavior but is missing from the
- * official `CrafterConfig` type.
- * This type extends the config to avoid TypeScript errors.
+ * official `config: Partial<CrafterConfig>` type.
+ * This extends the config to avoid TypeScript errors.
  */
 type CrafterConfigWithFlatten = CrafterConfig & {
     flatten: boolean
 }
 
-export const getModel = cache(async (path: ModelPathType) => {
+export const getModel = cache(async (path: CrafterPath): Promise<ContentInstance | null> => {
     const baseConfig = getCrafterConfig()
 
     try {
@@ -37,11 +37,11 @@ export const getModel = cache(async (path: ModelPathType) => {
     }
 })
 
-export const getNav = cache(async (depth = 1): Promise<NavigationItem[]> => {
+export const getNav = cache(async (depth: number): Promise<NavigationItem[]> => {
     const baseConfig = getCrafterConfig()
 
     try {
-        return (await firstValueFrom(
+        return await firstValueFrom(
             getNavTree('/site/website', depth, '/', {
                 ...baseConfig,
                 flatten: true,
@@ -53,11 +53,12 @@ export const getNav = cache(async (depth = 1): Promise<NavigationItem[]> => {
                         url: navigation.url,
                         active: navigation.active,
                         attributes: navigation.attributes,
+                        subItems: [],
                     },
                     ...navigation.subItems,
                 ])
             )
-        )) as unknown as Promise<NavigationItem[]>
+        )
     } catch (error) {
         console.error(`[tryCatch Error] in getNav`, {
             message: error instanceof Error ? error.message : error,

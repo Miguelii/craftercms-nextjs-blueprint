@@ -11,8 +11,6 @@ type Props = {
 }
 
 export default function HomeContent({ model }: Props) {
-    if (!model) return null
-
     const contentTypeMap = useMemo(
         () => ({
             '/component/rte': RichText,
@@ -20,6 +18,8 @@ export default function HomeContent({ model }: Props) {
         }),
         []
     )
+
+    if (!model) return null
 
     return (
         <RenderComponents

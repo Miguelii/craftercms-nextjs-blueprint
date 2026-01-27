@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import HeaderNav from './header-nav'
 
 export default function Header() {
-    const navPromise = getNav()
+    const navPromise = getNav(1)
 
     return (
         <nav className="bg-blue-600 text-white shadow-md relative">
