@@ -20,7 +20,6 @@ export default function HeaderNav({ navPromise }: Props) {
                     <Link
                         key={page.url}
                         href={page.url}
-                        prefetch
                         className="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
                     >
                         {page.label}
@@ -55,7 +54,6 @@ export default function HeaderNav({ navPromise }: Props) {
                                 href={page.url}
                                 className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
                                 onClick={() => setIsOpen(false)}
-                                prefetch
                             >
                                 {page.label}
                             </Link>
