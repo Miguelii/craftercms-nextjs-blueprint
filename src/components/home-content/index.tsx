@@ -4,21 +4,17 @@ import RenderComponents from '@craftercms/experience-builder/react/RenderCompone
 import RichText from '../rich-text'
 import type { ContentInstance } from '@craftercms/models'
 import Hero from '../hero'
-import { useMemo } from 'react'
 
 type Props = {
     model: ContentInstance
 }
 
-export default function HomeContent({ model }: Props) {
-    const contentTypeMap = useMemo(
-        () => ({
-            '/component/rte': RichText,
-            '/component/hero': Hero,
-        }),
-        []
-    )
+const contentTypeMap = {
+    '/component/rte': RichText,
+    '/component/hero': Hero,
+} as const
 
+export default function HomeContent({ model }: Props) {
     if (!model) return null
 
     return (
