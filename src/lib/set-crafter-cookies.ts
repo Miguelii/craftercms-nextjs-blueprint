@@ -11,7 +11,7 @@ export const setCrafterCookies = (request: NextRequest, response: NextResponse) 
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7, // 1 week
         /*
-         * Commented out because in local we use HTTP and localhost
+         * Commented out because in localhost we use HTTP
          * but should be enabled in non-localhost environments.
          */
         //sameSite: 'none' as const,

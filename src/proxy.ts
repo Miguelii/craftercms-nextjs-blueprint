@@ -11,7 +11,6 @@ export async function proxy(request: NextRequest) {
         },
     })
 
-    // Creates Crafter cookies
     setCrafterCookies(request, response)
 
     return response
