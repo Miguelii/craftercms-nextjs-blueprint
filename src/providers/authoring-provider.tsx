@@ -52,5 +52,5 @@ export const AuthoringProvider = ({ children }: PropsWithChildren) => {
         [appContext.isAuthoring]
     )
 
-    return <AuthoringContext.Provider value={contextValue}>{children}</AuthoringContext.Provider>
+    return <AuthoringContext value={contextValue}>{children}</AuthoringContext>
 }

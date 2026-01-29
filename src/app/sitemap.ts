@@ -6,7 +6,8 @@ import type { NavigationItem } from '@craftercms/models'
 export const revalidate = 86400 // 24h
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // Adjust based on the number of pages created in CrafterCMS
+    // This value depends on how many sub-pages exist in CrafterCMS
+    // Adjust as necessary
     const SEARCH_DEPTH = 10
 
     const siteNav = await getNav(SEARCH_DEPTH)
@@ -17,7 +18,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 /**
- * Converts a navigation tree into a flat list of sitemap entries.
  * Recursively traverses all navigation items and their subItems.
  *
  * @param items - Array of NavigationItem objects that may contain nested subItems.
