@@ -14,7 +14,7 @@ type Props = {
     model: ContentInstance | null
 }
 
-export default function FooterCopyRight({ model }: Props) {
+export default function FooterCopyRight({ model }: Readonly<Props>) {
     return (
         <RenderField
             model={model!}
