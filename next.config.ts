@@ -6,11 +6,25 @@ loadSystemEnvs()
 const nextConfig: NextConfig = {
     reactCompiler: true,
     experimental: {
+        /*
+         * Some of these packages are not directly installed in this project, but come as dependencies of @craftercms packages.
+         * We include them here so Next.js can properly optimize and tree-shake them.
+         */
         optimizePackageImports: [
             '@craftercms/experience-builder',
             '@craftercms/models',
             '@craftercms/classes',
             '@craftercms/content',
+            '@craftercms/studio-ui',
+            '@popperjs',
+            '@mui/system',
+            '@mui/material',
+            '@mui/utils',
+            'lodash',
+            'slugify',
+            'immer',
+            'query-string',
+            '@uppy/xhr-upload',
         ],
     },
     images: {
