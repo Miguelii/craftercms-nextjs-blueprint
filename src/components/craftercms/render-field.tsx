@@ -61,7 +61,7 @@ interface CMSFieldProps<V = unknown, F = V> extends Omit<
  * }
  * ```
  */
-export default function RenderField<V = unknown, F = V>(props: Readonly<CMSFieldProps<V, F>>) {
+export function RenderField<V = unknown, F = V>(props: Readonly<CMSFieldProps<V, F>>) {
     if (!props.model) return null
     return <CMSField {...props} />
 }

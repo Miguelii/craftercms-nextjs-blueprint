@@ -8,9 +8,9 @@ import {
     useState,
     type PropsWithChildren,
 } from 'react'
-import getCrafterConfig from '@/lib/get-crafter-config'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
 import { crafterConf } from '@craftercms/classes'
+import { getCrafterConfig } from '@/lib/get-crafter-config'
 
 type Context = {
     isAuthoring: boolean

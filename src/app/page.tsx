@@ -1,8 +1,8 @@
 import { getModel } from '@/lib/crafter-api'
-import RenderField from '@/components/craftercms/render-field'
-import ExperienceBuilder from '@/components/craftercms/experience-builder'
-import HomeContent from '@/components/home-content'
 import { ModelPathEnum } from '@/lib/constants'
+import { RenderField } from '@/components/craftercms/render-field'
+import { ExperienceBuilder } from '@/components/craftercms/experience-builder'
+import { HomeContent } from '@/components/home-content'
 
 export const dynamic = 'force-dynamic'
 

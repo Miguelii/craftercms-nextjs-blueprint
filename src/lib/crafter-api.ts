@@ -1,9 +1,9 @@
 import { parseDescriptor, getItem, getNavTree } from '@craftercms/content'
 import { cache } from 'react'
 import { firstValueFrom, map } from 'rxjs'
-import getCrafterConfig from './get-crafter-config'
 import type { ContentInstance, CrafterConfig, NavigationItem } from '@craftercms/models'
 import { ModelPathEnum } from '@/lib/constants'
+import { getCrafterConfig } from '@/lib/get-crafter-config'
 
 type CrafterPath = ModelPathEnum | `/site/website/${string}/index.xml`
 
