@@ -31,7 +31,7 @@ type Props = PropsWithChildren<{
  * }
  * ```
  */
-export default function ExperienceBuilder({ model, children }: Props) {
+export function ExperienceBuilder({ model, children }: Props) {
     const { isAuthoring } = use(AuthoringContext)
 
     if (!model) return children

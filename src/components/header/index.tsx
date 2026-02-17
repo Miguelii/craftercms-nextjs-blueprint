@@ -1,8 +1,8 @@
 import { getNav } from '@/lib/crafter-api'
 import { Suspense } from 'react'
-import HeaderNav from './header-nav'
+import { HeaderNav } from '@/components/header/header-nav'
 
-export default function Header() {
+export function Header() {
     const navPromise = getNav(1)
 
     return (

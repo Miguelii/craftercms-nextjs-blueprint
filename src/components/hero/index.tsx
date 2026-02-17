@@ -1,7 +1,7 @@
 'use client'
 
 import type { ContentInstance } from '@craftercms/models'
-import RenderField from '@/components/craftercms/render-field'
+import { RenderField } from '@/components/craftercms/render-field'
 import Image from 'next/image'
 import { ClientEnv } from '@/env/client'
 import Model from '@craftercms/experience-builder/react/Model'
@@ -11,7 +11,7 @@ type Props = {
     model: ContentInstance
 }
 
-export default function Hero({ model }: Readonly<Props>) {
+export function Hero({ model }: Readonly<Props>) {
     return (
         <Model
             model={model}

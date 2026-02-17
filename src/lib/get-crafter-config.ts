@@ -1,7 +1,7 @@
 import { ClientEnv } from '@/env/client'
 import type { CrafterConfig } from '@craftercms/models'
 
-export default function getCrafterConfig(): CrafterConfig {
+export const getCrafterConfig = (): CrafterConfig => {
     const requestHeaders: HeadersInit = {
         'X-Crafter-Preview': ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN,
     }

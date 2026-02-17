@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { setCrafterCookies } from './lib/set-crafter-cookies'
+import { setProxyCrafterCookies } from '@/lib/set-proxy-crafter-cookies'
 
 export async function proxy(request: NextRequest) {
     const requestHeaders = new Headers(request.headers)
@@ -11,7 +11,7 @@ export async function proxy(request: NextRequest) {
         },
     })
 
-    setCrafterCookies(request, response)
+    setProxyCrafterCookies(request, response)
 
     return response
 }

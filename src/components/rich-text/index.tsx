@@ -1,14 +1,14 @@
 'use client'
 
 import type { ContentInstance } from '@craftercms/models'
-import RenderField from '@/components/craftercms/render-field'
+import { RenderField } from '@/components/craftercms/render-field'
 import Model from '@craftercms/experience-builder/react/Model'
 
 type Props = {
     model: ContentInstance
 }
 
-export default function RichText({ model }: Readonly<Props>) {
+export function RichText({ model }: Readonly<Props>) {
     return (
         <Model
             model={model}

@@ -1,7 +1,7 @@
 'use client'
 
 import type { ContentInstance } from '@craftercms/models'
-import RenderField from '../craftercms/render-field'
+import { RenderField } from '@/components/craftercms/render-field'
 
 /**
  * This component cannot be a Server Component because it uses the `render` prop
@@ -14,7 +14,7 @@ type Props = {
     model: ContentInstance | null
 }
 
-export default function FooterCopyRight({ model }: Readonly<Props>) {
+export function FooterCopyRight({ model }: Readonly<Props>) {
     return (
         <RenderField
             model={model!}

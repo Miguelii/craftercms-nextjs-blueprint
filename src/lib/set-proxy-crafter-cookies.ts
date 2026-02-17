@@ -1,8 +1,8 @@
 import { ClientEnv } from '@/env/client'
 import type { NextRequest, NextResponse } from 'next/server'
-import { CRAFTER_PREVIEW_COOKIE_NAME, CRAFTER_SITE_COOKIE_NAME } from './constants'
+import { CRAFTER_PREVIEW_COOKIE_NAME, CRAFTER_SITE_COOKIE_NAME } from '@/lib/constants'
 
-export const setCrafterCookies = (request: NextRequest, response: NextResponse) => {
+export const setProxyCrafterCookies = (request: NextRequest, response: NextResponse) => {
     const hasPreviewCookie = request.cookies.has(CRAFTER_PREVIEW_COOKIE_NAME)
     const hasSiteCookie = request.cookies.has(CRAFTER_SITE_COOKIE_NAME)
 

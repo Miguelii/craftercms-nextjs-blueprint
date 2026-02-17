@@ -1,5 +1,5 @@
-import ExperienceBuilder from '@/components/craftercms/experience-builder'
-import RenderField from '@/components/craftercms/render-field'
+import { ExperienceBuilder } from '@/components/craftercms/experience-builder'
+import { RenderField } from '@/components/craftercms/render-field'
 import { ModelPathEnum } from '@/lib/constants'
 import { getModel } from '@/lib/crafter-api'
 

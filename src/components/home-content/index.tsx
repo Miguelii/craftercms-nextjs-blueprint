@@ -1,9 +1,9 @@
 'use client'
 
 import RenderComponents from '@craftercms/experience-builder/react/RenderComponents'
-import RichText from '../rich-text'
 import type { ContentInstance } from '@craftercms/models'
-import Hero from '../hero'
+import { Hero } from '@/components/hero'
+import { RichText } from '@/components/rich-text'
 
 type Props = {
     model: ContentInstance
@@ -14,7 +14,7 @@ const contentTypeMap = {
     '/component/hero': Hero,
 } as const
 
-export default function HomeContent({ model }: Readonly<Props>) {
+export function HomeContent({ model }: Readonly<Props>) {
     if (!model) return null
 
     return (
