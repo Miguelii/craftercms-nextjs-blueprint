@@ -8,7 +8,7 @@ type Props = {
     navPromise: Promise<NavigationItem[]>
 }
 
-export function HeaderNav({ navPromise }: Readonly<Props>) {
+export function HeaderNav({ navPromise }: Props) {
     const navigation = use(navPromise)
 
     const [isOpen, setIsOpen] = useState(false)

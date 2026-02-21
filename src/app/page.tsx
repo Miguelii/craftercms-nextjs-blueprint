@@ -6,9 +6,7 @@ import { HomeContent } from '@/components/home-content'
 
 export const dynamic = 'force-dynamic'
 
-type Props = PageProps<'/'>
-
-export default async function Home(props: Props) {
+export default async function Home(props: PageProps<'/'>) {
     const model = await getModel(ModelPathEnum.HOME_PAGE)
 
     return (

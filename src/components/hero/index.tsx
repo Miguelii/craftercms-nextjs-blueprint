@@ -11,7 +11,7 @@ type Props = {
     model: ContentInstance
 }
 
-export function Hero({ model }: Readonly<Props>) {
+export function Hero({ model }: Props) {
     return (
         <Model
             model={model}

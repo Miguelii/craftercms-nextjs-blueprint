@@ -5,9 +5,7 @@ import { getModel } from '@/lib/crafter-api'
 
 export const dynamic = 'force-dynamic'
 
-type Props = PageProps<'/about'>
-
-export default async function AboutPage(props: Props) {
+export default async function AboutPage(props: PageProps<'/about'>) {
     const model = await getModel(ModelPathEnum.ABOUT_PAGE)
 
     return (
