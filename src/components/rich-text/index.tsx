@@ -8,7 +8,7 @@ type Props = {
     model: ContentInstance
 }
 
-export function RichText({ model }: Readonly<Props>) {
+export function RichText({ model }: Props) {
     return (
         <Model
             model={model}

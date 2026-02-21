@@ -27,8 +27,10 @@ interface CMSFieldProps<V = unknown, F = V> extends Omit<
  * ```tsx
  * // Server Component
  * export default async function ServerComponent() {
- *   const model = await getModel()
- *   const data = await fetchSomeDataFromSSR()
+ *  const [model, data] = await Promise.all([
+ *      getModel(),
+ *      fetchSomeDataFromSSR()
+ *  ])
  *
  *   return (
  *     <div>
@@ -36,7 +38,7 @@ interface CMSFieldProps<V = unknown, F = V> extends Omit<
  *         model={model}
  *         fieldId="title_s"
  *       />
- *       // Allows to render a Server Component
+ *       // Server Components can be used alongside RenderField
  *       <ServerComponent data={data} />
  *     </div>
  *   )

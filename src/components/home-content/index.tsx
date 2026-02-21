@@ -14,7 +14,7 @@ const contentTypeMap = {
     '/component/hero': Hero,
 } as const
 
-export function HomeContent({ model }: Readonly<Props>) {
+export function HomeContent({ model }: Props) {
     if (!model) return null
 
     return (

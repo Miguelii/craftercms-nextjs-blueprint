@@ -19,12 +19,14 @@ type Props = PropsWithChildren<{
  * ```tsx
  * // Server Component
  * export default async function ServerComponent() {
- *   const model = await getModel()
- *   const data = await fetchSomeDataFromSSR()
+ *  const [model, data] = await Promise.all([
+ *      getModel(),
+ *      fetchSomeDataFromSSR()
+ *  ])
  *
  *   return (
  *     <ExperienceBuilder model={model}>
- *       // Allows to render a Server Component
+ *       // Server Components can be used alongside ExperienceBuilder
  *       <ServerComponent data={data} />
  *     </ExperienceBuilder>
  *   )

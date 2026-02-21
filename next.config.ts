@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
         /*
          * Some of these packages are not directly installed in this project, but come as dependencies of @craftercms packages.
          * We include them here so Next.js can properly optimize and tree-shake them.
+         * @see PR #7 https://github.com/Miguelii/craftercms-nextjs-blueprint/pull/7 to see the impact of this optimization
          */
         optimizePackageImports: [
             '@craftercms/experience-builder',
