@@ -1,15 +1,7 @@
 'use client'
 
-import {
-    createContext,
-    useEffect,
-    useEffectEvent,
-    useMemo,
-    useState,
-    type PropsWithChildren,
-} from 'react'
+import { createContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
-import { crafterConf } from '@craftercms/classes'
 import { getCrafterConfig } from '@/lib/get-crafter-config'
 
 type Context = {
@@ -22,18 +14,14 @@ export const AuthoringContext = createContext<Context>({
 
 const baseConfig = getCrafterConfig()
 
-crafterConf.configure(baseConfig)
-
 export const AuthoringProvider = ({ children }: PropsWithChildren) => {
     const [appContext, setAppContext] = useState({
         isAuthoring: false,
     })
 
-    const onConnect = useEffectEvent(() => {
-        fetchIsAuthoring()
-            .then((res) => {
-                setAppContext({ isAuthoring: res })
-            })
+    useEffect(() => {
+        fetchIsAuthoring(baseConfig)
+            .then((res) => setAppContext({ isAuthoring: res }))
             .catch((error) => {
                 console.error(`[tryCatch Error] in fetchIsAuthoring`, {
                     message: error instanceof Error ? error.message : error,
@@ -41,10 +29,6 @@ export const AuthoringProvider = ({ children }: PropsWithChildren) => {
                     timestamp: new Date().toISOString(),
                 })
             })
-    })
-
-    useEffect(() => {
-        onConnect()
     }, [])
 
     const contextValue = useMemo(

@@ -36,6 +36,7 @@ type Props = PropsWithChildren<{
 export function ExperienceBuilder({ model, children }: Props) {
     const { isAuthoring } = use(AuthoringContext)
 
+    // Just a double safety check to avoid rendering the ExperienceBuilder when there's no model available, which would cause it to throw an error.
     if (!model) return children
 
     return (

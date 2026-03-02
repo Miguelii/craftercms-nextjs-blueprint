@@ -7,3 +7,7 @@ export enum ModelPathEnum {
 export const CRAFTER_SITE_COOKIE_NAME = 'crafterSite' as const
 
 export const CRAFTER_PREVIEW_COOKIE_NAME = 'crafterPreview' as const
+
+export const GET_MODEL_CACHE_KEY_PREFIX = 'getModel' as const
+
+export const GET_NAV_CACHE_KEY_PREFIX = 'getNav' as const

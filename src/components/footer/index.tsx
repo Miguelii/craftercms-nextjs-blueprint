@@ -3,6 +3,11 @@ import { getModel } from '@/lib/crafter-api'
 import { ExperienceBuilder } from '@/components/craftercms/experience-builder'
 import { FooterCopyRight } from '@/components/footer/footer-copyright'
 
+/**
+ * Note: This component awaits `getModel` directly, which causes a waterfall —
+ * the footer fetch only starts after the page content has finished rendering.
+ * This is intentionally kept simple only as a blueprint example.
+ */
 export async function Footer() {
     const model = await getModel(ModelPathEnum.FOOTER_COMPONENT)
 
