@@ -14,8 +14,6 @@ import {
 import { getCrafterConfig } from '@/lib/get-crafter-config'
 import { unstable_cache } from 'next/cache'
 
-type ModelPath = ModelPathEnum | `/site/website/${string}/index.xml`
-
 /**
  * `flatten` is required for correct API behavior but is missing from the
  * official `config: Partial<CrafterConfig>` type.
@@ -26,13 +24,12 @@ type CrafterConfigWithFlatten = CrafterConfig & {
 }
 
 /**
- * All crafter data-fetching functions in this file are wrapped with two layers of cache:
+ * Crafter data-fetching functions in this file are wrapped with two layers of cache:
  *
- * 1. `unstable_cache` (Next.js Data Cache) — persists results across requests.
+ * 1. `unstable_cache` — persists results across requests.
  *    The CrafterCMS SDK uses its own HTTP client (RxJS observables), so Next.js
  *    cannot intercept and cache these calls automatically.
- *    `unstable_cache` fills that gap, storing results server-side with a configurable TTL (`revalidate`)
- *    and supporting on-demand invalidation via tags (`revalidateTag`).
+ *    `unstable_cache` solves that gap, storing results server-side with a configurable TTL (`revalidate`).
  *
  * 2. `React.cache()` — deduplicates calls within a single request's render tree.
  *    If the same function is called multiple times with the same arguments during
@@ -50,13 +47,15 @@ type CrafterConfigWithFlatten = CrafterConfig & {
  *   The optimal duration depends on how often content changes and how critical it is for users to see updates immediately.
  *
  * This blueprint uses `revalidate: 1` since it targets the authoring/preview environment.
+ *
+ * It may be a bit overkill, but the idea here is to really show the power that Next.js brings to CrafterCMS.
  **/
 
 const baseConfig = getCrafterConfig()
 
 export const getModel = cache(
     unstable_cache(
-        async (path: ModelPath): Promise<ContentInstance | null> => {
+        async (path: ModelPathEnum): Promise<ContentInstance | null> => {
             try {
                 return await firstValueFrom(
                     getItem(path, {
