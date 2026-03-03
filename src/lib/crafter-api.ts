@@ -1,10 +1,14 @@
 import { parseDescriptor, getItem, getNavTree } from '@craftercms/content'
 import { cache } from 'react'
-import { firstValueFrom, map } from 'rxjs'
+import { firstValueFrom, map, timeout } from 'rxjs'
 import type { ContentInstance, CrafterConfig, NavigationItem } from '@craftercms/models'
 import {
     GET_MODEL_CACHE_KEY_PREFIX,
+    GET_MODEL_CACHE_TIME_S,
+    GET_MODEL_TIMEOUT_MS,
     GET_NAV_CACHE_KEY_PREFIX,
+    GET_NAV_CACHE_TIME_S,
+    GET_NAV_TIMEOUT_MS,
     ModelPathEnum,
 } from '@/lib/constants'
 import { getCrafterConfig } from '@/lib/get-crafter-config'
@@ -16,7 +20,7 @@ type ModelPath = ModelPathEnum | `/site/website/${string}/index.xml`
  * `flatten` is required for correct API behavior but is missing from the
  * official `config: Partial<CrafterConfig>` type.
  * This extends the config to avoid TypeScript errors.
- */
+ **/
 type CrafterConfigWithFlatten = CrafterConfig & {
     flatten: boolean
 }
@@ -40,12 +44,12 @@ type CrafterConfigWithFlatten = CrafterConfig & {
  *
  * In a real CrafterCMS setup, two separate Next.js applications are typically deployed:
  *
- * - Authoring app: connects to Preview. Content editors need to see their changes immediately, so `revalidate` must be false.
+ * - Authoring app: connects to Preview. Content editors need to see their changes immediately, so `revalidate` must be 1 (lowest possible value).
  *
  * - Delivery app: connects to published content. Content only changes when editor publishes, so it can be cached with a longer TTL.
  *   The optimal duration depends on how often content changes and how critical it is for users to see updates immediately.
  *
- * This blueprint uses `revalidate: false` since it targets the authoring/preview environment.
+ * This blueprint uses `revalidate: 1` since it targets the authoring/preview environment.
  **/
 
 const baseConfig = getCrafterConfig()
@@ -59,6 +63,7 @@ export const getModel = cache(
                         ...baseConfig,
                         flatten: true,
                     } as CrafterConfigWithFlatten).pipe(
+                        timeout(GET_MODEL_TIMEOUT_MS),
                         map((descriptor) =>
                             parseDescriptor(descriptor, { parseFieldValueTypes: true })
                         )
@@ -74,7 +79,7 @@ export const getModel = cache(
             }
         },
         [GET_MODEL_CACHE_KEY_PREFIX],
-        { revalidate: false, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
+        { revalidate: GET_MODEL_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
     )
 )
 
@@ -87,6 +92,7 @@ export const getNav = cache(
                         ...baseConfig,
                         flatten: true,
                     } as CrafterConfigWithFlatten).pipe(
+                        timeout(GET_NAV_TIMEOUT_MS),
                         map((navigation) => [
                             {
                                 label: navigation.label,
@@ -109,6 +115,6 @@ export const getNav = cache(
             }
         },
         [GET_NAV_CACHE_KEY_PREFIX],
-        { revalidate: false, tags: [GET_NAV_CACHE_KEY_PREFIX] }
+        { revalidate: GET_NAV_CACHE_TIME_S, tags: [GET_NAV_CACHE_KEY_PREFIX] }
     )
 )

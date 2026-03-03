@@ -3,8 +3,6 @@ import { getNav } from '@/lib/crafter-api'
 import { ClientEnv } from '@/env/client'
 import type { NavigationItem } from '@craftercms/models'
 
-export const revalidate = 86400 // 24h
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // This value depends on how many sub-pages exist in CrafterCMS
     // Adjust as necessary

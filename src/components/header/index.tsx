@@ -1,10 +1,12 @@
-import { getNav } from '@/lib/crafter-api'
 import { Suspense } from 'react'
 import { HeaderNav } from '@/components/header/header-nav'
+import type { NavigationItem } from '@craftercms/models'
 
-export function Header() {
-    const navPromise = getNav(1)
+type Props = {
+    navPromise: Promise<NavigationItem[]>
+}
 
+export function Header({ navPromise }: Props) {
     return (
         <nav className="bg-blue-600 text-white shadow-md relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
