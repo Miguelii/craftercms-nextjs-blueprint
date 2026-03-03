@@ -15,8 +15,6 @@ const contentTypeMap = {
 } as const
 
 export function HomeContent({ model }: Props) {
-    if (!model) return null
-
     return (
         <RenderComponents
             contentTypeMap={contentTypeMap}

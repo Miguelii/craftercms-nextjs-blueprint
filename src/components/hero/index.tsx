@@ -36,7 +36,7 @@ export function Hero({ model }: Props) {
                      */
                     const previewToken = encodeURIComponent(ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN)
 
-                    const URL = `${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_HOST_NAME}${imgSrc}?${CRAFTER_SITE_COOKIE_NAME}=${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME}&${CRAFTER_PREVIEW_COOKIE_NAME}=${previewToken}`
+                    const IMAGE_URL = `${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_HOST_NAME}${imgSrc}?${CRAFTER_SITE_COOKIE_NAME}=${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME}&${CRAFTER_PREVIEW_COOKIE_NAME}=${previewToken}`
 
                     return (
                         <Image
@@ -45,7 +45,7 @@ export function Hero({ model }: Props) {
                             height={400}
                             sizes="100vw"
                             className="object-cover w-full h-full"
-                            src={URL}
+                            src={IMAGE_URL}
                         />
                     )
                 }}

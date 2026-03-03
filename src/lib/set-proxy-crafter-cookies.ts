@@ -9,13 +9,9 @@ export const setProxyCrafterCookies = (request: NextRequest, response: NextRespo
     const cookieOptions = {
         path: '/',
         httpOnly: true,
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        /*
-         * Commented out because in localhost we use HTTP
-         * but should be enabled in non-localhost environments.
-         */
-        //sameSite: 'none' as const,
-        //secure: true,
+        maxAge: 60 * 60 * 24, // 24 hours
+        sameSite: 'none' as const,
+        secure: true,
     }
 
     if (!hasPreviewCookie) {

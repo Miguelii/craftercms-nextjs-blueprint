@@ -4,6 +4,11 @@ import type { NextConfig } from 'next'
 loadSystemEnvs()
 
 const nextConfig: NextConfig = {
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
     reactCompiler: true,
     experimental: {
         /*
@@ -17,6 +22,7 @@ const nextConfig: NextConfig = {
             '@craftercms/classes',
             '@craftercms/content',
             '@craftercms/studio-ui',
+            'rxjs',
             '@popperjs',
             '@mui/system',
             '@mui/material',
@@ -29,9 +35,10 @@ const nextConfig: NextConfig = {
         ],
     },
     images: {
-        // As of Next.js v16, `dangerouslyAllowLocalIP` must be enabled when loading images
-        // from a local IP (in this case: NEXT_PUBLIC_CRAFTERCMS_HOST_NAME).
-        // This should only be enabled for local development and disabled in production environments.
+        // As of Next.js v16, `dangerouslyAllowLocalIP` must be enabled when loading images from a local IP.
+        // Required in this blueprint because `NEXT_PUBLIC_CRAFTERCMS_HOST_NAME` points to a local IP.
+        // In production, CrafterCMS is typically served behind a CDN or reverse proxy with a proper hostname, making this option unnecessary.
+        // TODO remove.
         dangerouslyAllowLocalIP: true,
         remotePatterns: [
             {
