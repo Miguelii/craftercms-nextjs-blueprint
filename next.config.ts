@@ -4,11 +4,6 @@ import type { NextConfig } from 'next'
 loadSystemEnvs()
 
 const nextConfig: NextConfig = {
-    logging: {
-        fetches: {
-            fullUrl: true,
-        },
-    },
     reactCompiler: true,
     experimental: {
         /*
