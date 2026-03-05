@@ -3,6 +3,7 @@
 import { createContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
 import { getCrafterConfig } from '@/lib/utils'
+import { Logger } from '@/lib/logger'
 
 type Context = {
     isAuthoring: boolean
@@ -23,11 +24,7 @@ export const AuthoringProvider = ({ children }: PropsWithChildren) => {
         fetchIsAuthoring(baseConfig)
             .then((res) => setAppContext({ isAuthoring: res }))
             .catch((error) => {
-                console.error(`[tryCatch Error] in fetchIsAuthoring`, {
-                    message: error instanceof Error ? error.message : error,
-                    stack: error instanceof Error ? error.stack : undefined,
-                    timestamp: new Date().toISOString(),
-                })
+                Logger.error('[tryCatch Error] in fetchIsAuthoring', error)
             })
     }, [])
 

@@ -20,6 +20,7 @@ import {
 } from '@/lib/constants'
 import { unstable_cache } from 'next/cache'
 import { ensureModelFound, getCrafterConfig } from '@/lib/utils'
+import { Logger } from './logger'
 
 /**
  * Crafter data-fetching functions in this file are wrapped with two layers of cache:
@@ -63,11 +64,7 @@ export const getModel = async (path: ModelPathEnum): Promise<ContentInstance | n
     try {
         return await getModelFn(path)
     } catch (error) {
-        console.error(`[tryCatch Error] in getModel`, {
-            message: error instanceof Error ? error.message : error,
-            stack: error instanceof Error ? error.stack : undefined,
-            timestamp: new Date().toISOString(),
-        })
+        Logger.error('[tryCatch Error] in getModel', error)
         return null
     }
 }
@@ -97,11 +94,7 @@ export const getModelByUrl = async (webUrl: ModelWebUrlEnum): Promise<ContentIns
     try {
         return await getModelByUrlFn(webUrl)
     } catch (error) {
-        console.error(`[tryCatch Error] in getModelByUrl`, {
-            message: error instanceof Error ? error.message : error,
-            stack: error instanceof Error ? error.stack : undefined,
-            timestamp: new Date().toISOString(),
-        })
+        Logger.error('[tryCatch Error] in getModelByUrl', error)
         return null
     }
 }
@@ -136,11 +129,7 @@ export const getNav = async (depth: number): Promise<NavigationItem[]> => {
     try {
         return await getNavFn(depth)
     } catch (error) {
-        console.error(`[tryCatch Error] in getNav`, {
-            message: error instanceof Error ? error.message : error,
-            stack: error instanceof Error ? error.stack : undefined,
-            timestamp: new Date().toISOString(),
-        })
+        Logger.error('[tryCatch Error] in getNav', error)
         return []
     }
 }
