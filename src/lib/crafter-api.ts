@@ -1,10 +1,5 @@
-import {
-    parseDescriptor,
-    getItem,
-    getNavTree,
-    urlTransform,
-    type GetDescriptorConfig,
-} from '@craftercms/content'
+import { parseDescriptor, getItem, getNavTree, urlTransform } from '@craftercms/content'
+import type { GetDescriptorConfig } from '@craftercms/content'
 import { cache } from 'react'
 import { firstValueFrom, map, switchMap, timeout } from 'rxjs'
 import type { ContentInstance, NavigationItem } from '@craftercms/models'
@@ -70,7 +65,7 @@ export const getModel = async (path: ModelPathEnum): Promise<ContentInstance | n
 }
 const getModelFn = cache(
     unstable_cache(
-        async (path: ModelPathEnum): Promise<ContentInstance | null> => {
+        async (path: ModelPathEnum): Promise<ContentInstance> => {
             return await firstValueFrom(
                 getItem(path, {
                     ...baseConfig,
@@ -100,7 +95,7 @@ export const getModelByUrl = async (webUrl: ModelWebUrlEnum): Promise<ContentIns
 }
 const getModelByUrlFn = cache(
     unstable_cache(
-        async (webUrl: ModelWebUrlEnum): Promise<ContentInstance | null> => {
+        async (webUrl: ModelWebUrlEnum): Promise<ContentInstance> => {
             return await firstValueFrom(
                 urlTransform('renderUrlToStoreUrl', webUrl, baseConfig).pipe(
                     switchMap((path) =>
