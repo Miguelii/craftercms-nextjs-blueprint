@@ -1,9 +1,15 @@
 export enum ModelPathEnum {
     HOME_PAGE = '/site/website/index.xml',
-    ABOUT_PAGE = '/site/website/about/index.xml',
+    ABOUT_PAGE = `/site/website/about/index.xml`,
     FOOTER_COMPONENT = '/site/components/footer.xml',
 }
 
+export enum ModelWebUrlEnum {
+    HOME_PAGE = '/',
+    ABOUT_PAGE = '/about',
+}
+
+/*** CRAFTER COOKIE constants ***/
 export const CRAFTER_SITE_COOKIE_NAME = 'crafterSite' as const
 
 export const CRAFTER_PREVIEW_COOKIE_NAME = 'crafterPreview' as const
@@ -15,7 +21,7 @@ export const GET_MODEL_CACHE_TIME_S = 1 as const // 1 second
 
 export const GET_MODEL_TIMEOUT_MS = 10000 as const // 10 seconds
 
-// GET_NAV constants
+/*** GET_NAV constants ***/
 export const GET_NAV_CACHE_KEY_PREFIX = 'getNav' as const
 
 export const GET_NAV_CACHE_TIME_S = 1 as const // 1 second

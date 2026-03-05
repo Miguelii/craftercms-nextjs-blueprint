@@ -1,6 +1,6 @@
-import { parseDescriptor, getItem, getNavTree } from '@craftercms/content'
+import { parseDescriptor, getItem, getNavTree, urlTransform } from '@craftercms/content'
 import { cache } from 'react'
-import { firstValueFrom, map, timeout } from 'rxjs'
+import { firstValueFrom, map, switchMap, timeout } from 'rxjs'
 import type { ContentInstance, CrafterConfig, NavigationItem } from '@craftercms/models'
 import {
     GET_MODEL_CACHE_KEY_PREFIX,
@@ -10,13 +10,20 @@ import {
     GET_NAV_CACHE_TIME_S,
     GET_NAV_TIMEOUT_MS,
     ModelPathEnum,
+    ModelWebUrlEnum,
 } from '@/lib/constants'
 import { getCrafterConfig } from '@/lib/get-crafter-config'
 import { unstable_cache } from 'next/cache'
+import { ensureModelFound } from './utils'
 
 /**
- * `flatten` is required for correct API behavior but is missing from the
- * official `config: Partial<CrafterConfig>` type.
+ * There is a type mismatch in the getItem and getNavTree functions from the CrafterCMS SDK:
+ *
+ * - getItem expects a `config: Partial<CrafterConfig>` but requires a `flatten` property in that config to work correctly,
+ * which is not included in the official `CrafterConfig` type definition.
+ *
+ * - getNavTree has the same issue, expects a `config: CrafterConfig` but also requires a `flatten` property.
+ *
  * This extends the config to avoid TypeScript errors.
  **/
 type CrafterConfigWithFlatten = CrafterConfig & {
@@ -64,12 +71,50 @@ export const getModel = cache(
                     } as CrafterConfigWithFlatten).pipe(
                         timeout(GET_MODEL_TIMEOUT_MS),
                         map((descriptor) =>
-                            parseDescriptor(descriptor, { parseFieldValueTypes: true })
+                            ensureModelFound(
+                                parseDescriptor(descriptor, { parseFieldValueTypes: true })
+                            )
                         )
                     )
                 )
             } catch (error) {
                 console.error(`[tryCatch Error] in getModel`, {
+                    message: error instanceof Error ? error.message : error,
+                    stack: error instanceof Error ? error.stack : undefined,
+                    timestamp: new Date().toISOString(),
+                })
+                return null
+            }
+        },
+        [GET_MODEL_CACHE_KEY_PREFIX],
+        { revalidate: GET_MODEL_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
+    )
+)
+
+export const getModelByUrl = cache(
+    unstable_cache(
+        async (webUrl: ModelWebUrlEnum): Promise<ContentInstance | null> => {
+            try {
+                return await firstValueFrom(
+                    urlTransform('renderUrlToStoreUrl', webUrl, baseConfig).pipe(
+                        switchMap((path) =>
+                            getItem(path, {
+                                ...baseConfig,
+                                flatten: true,
+                            } as CrafterConfigWithFlatten).pipe(
+                                map((descriptor) =>
+                                    ensureModelFound(
+                                        parseDescriptor(descriptor, {
+                                            parseFieldValueTypes: true,
+                                        })
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            } catch (error) {
+                console.error(`[tryCatch Error] in getModelByUrl`, {
                     message: error instanceof Error ? error.message : error,
                     stack: error instanceof Error ? error.stack : undefined,
                     timestamp: new Date().toISOString(),

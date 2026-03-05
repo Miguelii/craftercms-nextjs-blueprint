@@ -1,13 +1,13 @@
 import { ExperienceBuilder } from '@/components/craftercms/experience-builder'
 import { RenderField } from '@/components/craftercms/render-field'
-import { ModelPathEnum } from '@/lib/constants'
-import { getModel } from '@/lib/crafter-api'
+import { ModelWebUrlEnum } from '@/lib/constants'
+import { getModelByUrl } from '@/lib/crafter-api'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AboutPage(props: PageProps<'/about'>) {
-    const model = await getModel(ModelPathEnum.ABOUT_PAGE)
+    const model = await getModelByUrl(ModelWebUrlEnum.ABOUT_PAGE)
 
     if (!model) return notFound()
 
