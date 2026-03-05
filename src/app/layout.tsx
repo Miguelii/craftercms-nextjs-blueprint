@@ -37,7 +37,9 @@ export default async function RootLayout({ children }: Props) {
 
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} min-h-screen flex flex-col`}>
+            <body
+                className={`${geistSans.variable} min-h-screen flex flex-col bg-background font-sans antialiased text-primary`}
+            >
                 <AuthoringProvider>
                     <Header navPromise={navPromise} />
                     <div className="flex-1 w-full">{children}</div>

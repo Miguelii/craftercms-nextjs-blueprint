@@ -13,9 +13,5 @@
 }
 
 html {
-    scroll-behavior: smooth;
-}
-
-body {
-    @apply bg-background font-sans antialiased text-primary;
+    scroll-behavior: smooth !important;
 }
