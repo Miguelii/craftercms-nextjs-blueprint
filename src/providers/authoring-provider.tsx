@@ -1,6 +1,7 @@
 'use client'
 
-import { createContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react'
+import { createContext, useEffect, useMemo, useState } from 'react'
+import type { PropsWithChildren } from 'react'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
 import { getCrafterConfig } from '@/lib/utils'
 

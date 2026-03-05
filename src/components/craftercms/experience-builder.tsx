@@ -3,7 +3,8 @@
 import { AuthoringContext } from '@/providers/authoring-provider'
 import { ExperienceBuilder as CMSBuilder } from '@craftercms/experience-builder/react/ExperienceBuilder'
 import type { ContentInstance } from '@craftercms/models'
-import { use, type PropsWithChildren } from 'react'
+import { use } from 'react'
+import type { PropsWithChildren } from 'react'
 
 type Props = PropsWithChildren<{
     model: ContentInstance | null
