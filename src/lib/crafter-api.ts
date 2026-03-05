@@ -12,9 +12,8 @@ import {
     ModelPathEnum,
     ModelWebUrlEnum,
 } from '@/lib/constants'
-import { getCrafterConfig } from '@/lib/get-crafter-config'
 import { unstable_cache } from 'next/cache'
-import { ensureModelFound } from './utils'
+import { ensureModelFound, getCrafterConfig } from '@/lib/utils'
 
 /**
  * There is a type mismatch in the getItem and getNavTree functions from the CrafterCMS SDK:

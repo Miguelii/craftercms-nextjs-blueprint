@@ -6,6 +6,6 @@ const jiti = createJiti(import.meta.url)
 
 export const loadSystemEnvs = () => {
     const baseDir = path.dirname(fileURLToPath(import.meta.url))
-    jiti.import(path.resolve(baseDir, '../env/client.ts'))
-    jiti.import(path.resolve(baseDir, '../env/server.ts'))
+    jiti.import(path.resolve(baseDir, './client.ts'))
+    jiti.import(path.resolve(baseDir, './server.ts'))
 }

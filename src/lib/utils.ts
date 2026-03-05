@@ -1,28 +1,27 @@
 import { ClientEnv } from '@/env/client'
-import type { ContentInstance, NavigationItem } from '@craftercms/models'
-import type { MetadataRoute } from 'next'
+import type { ContentInstance, CrafterConfig } from '@craftercms/models'
 
 /**
- * Recursively traverses all navigation items and their subItems.
+ * Builds the CrafterCMS SDK config from environment variables.
+ * Includes the preview token header required for authenticated requests.
  *
- * @param items - Array of NavigationItem objects that may contain nested subItems.
- * @returns A flat array of MetadataRoute.Sitemap entries.
+ * @returns A {@link CrafterConfig} object.
  */
-export function navToSitemapEntries(items: NavigationItem[]): MetadataRoute.Sitemap {
-    return items.flatMap((item) => {
-        const entry: MetadataRoute.Sitemap[number] = {
-            url: `${ClientEnv.NEXT_PUBLIC_HOST}${item.url}`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 1,
-        }
+export const getCrafterConfig = (): CrafterConfig => {
+    const requestHeaders: HeadersInit = {
+        'X-Crafter-Preview': ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN,
+    }
 
-        if (!item.subItems || item.subItems.length === 0) {
-            return [entry]
-        }
-
-        return [entry, ...navToSitemapEntries(item.subItems)]
-    })
+    return {
+        baseUrl: ClientEnv.NEXT_PUBLIC_CRAFTERCMS_HOST_NAME,
+        site: ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME,
+        fetchConfig: {
+            mode: 'cors',
+            headers: requestHeaders,
+            credentials: 'include',
+        },
+        headers: requestHeaders,
+    }
 }
 
 /**

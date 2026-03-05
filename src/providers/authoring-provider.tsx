@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
-import { getCrafterConfig } from '@/lib/get-crafter-config'
+import { getCrafterConfig } from '@/lib/utils'
 
 type Context = {
     isAuthoring: boolean
