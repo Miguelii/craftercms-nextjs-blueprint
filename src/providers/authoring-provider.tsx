@@ -5,6 +5,7 @@ import type { PropsWithChildren } from 'react'
 import { fetchIsAuthoring } from '@craftercms/experience-builder'
 import { getCrafterConfig } from '@/lib/utils'
 import { Logger } from '@/lib/logger'
+import { ClientEnv } from '@/env/client'
 
 type Context = {
     isAuthoring: boolean
@@ -22,6 +23,11 @@ export const AuthoringProvider = ({ children }: PropsWithChildren) => {
     })
 
     useEffect(() => {
+        if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery') {
+            setAppContext({ isAuthoring: false })
+            return
+        }
+
         fetchIsAuthoring(baseConfig)
             .then((res) => setAppContext({ isAuthoring: res }))
             .catch((error) => {

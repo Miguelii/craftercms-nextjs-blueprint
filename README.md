@@ -45,8 +45,11 @@ Then update the values accordingly:
 **NEXT_PUBLIC_HOST**  
 The URL of your Next.js application (default: `http://localhost:3000`)
 
-**NEXT_PUBLIC_CRAFTERCMS_HOST_NAME**  
-The URL of your CrafterCMS instance (default: `http://localhost:8080`)
+**NEXT_PUBLIC_CRAFTERCMS_AUTHORING_HOST_NAME**  
+The URL of your CrafterCMS Authoring instance (default: `http://localhost:8080`)
+
+**NEXT_PUBLIC_CRAFTERCMS_DELIVERY_HOST_NAME**  
+The URL of your CrafterCMS Delivery instance (default: `http://localhost:9080`)
 
 **NEXT_PUBLIC_CRAFTERCMS_SITE_NAME**  
 The name of the site created in CrafterCMS Studio

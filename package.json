@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build:authoring": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=authoring next build",
+        "build:delivery": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=delivery next build",
         "start": "next start",
         "lint": "eslint",
         "prettier": "npx prettier . --write"

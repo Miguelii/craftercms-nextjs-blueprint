@@ -3,9 +3,8 @@
 import type { ContentInstance } from '@craftercms/models'
 import { RenderField } from '@/components/craftercms/render-field'
 import Image from 'next/image'
-import { ClientEnv } from '@/env/client'
 import Model from '@craftercms/experience-builder/react/Model'
-import { CRAFTER_PREVIEW_COOKIE_NAME, CRAFTER_SITE_COOKIE_NAME } from '@/lib/constants'
+import { buildCrafterAssetUrl } from '@/lib/utils'
 
 type Props = {
     model: ContentInstance
@@ -30,14 +29,6 @@ export function Hero({ model }: Props) {
                 render={(imgSrc: string) => {
                     if (!imgSrc) return null
 
-                    /*
-                     * In order for Next.js to fetch the image, we need to create the URL
-                     * with CRAFTER_SITE_COOKIE_NAME and CRAFTER_PREVIEW_COOKIE_NAME in searchParams.
-                     */
-                    const previewToken = encodeURIComponent(ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN)
-
-                    const IMAGE_URL = `${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_HOST_NAME}${imgSrc}?${CRAFTER_SITE_COOKIE_NAME}=${ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME}&${CRAFTER_PREVIEW_COOKIE_NAME}=${previewToken}`
-
                     return (
                         <Image
                             alt="Hero background image"
@@ -45,7 +36,7 @@ export function Hero({ model }: Props) {
                             height={400}
                             sizes="100vw"
                             className="object-cover w-full h-full"
-                            src={IMAGE_URL}
+                            src={buildCrafterAssetUrl(imgSrc)}
                         />
                     )
                 }}
