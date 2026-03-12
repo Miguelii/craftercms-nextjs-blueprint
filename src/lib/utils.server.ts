@@ -49,7 +49,8 @@ export const setProxyCrafterCookies = (request: NextRequest, response: NextRespo
         secure: true,
     }
 
-    if (!hasPreviewCookie) {
+    // In delivery we dont need the preview cookie
+    if (!hasPreviewCookie && ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT !== 'delivery') {
         response.cookies.set(
             CRAFTER_PREVIEW_COOKIE_NAME,
             ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN,
