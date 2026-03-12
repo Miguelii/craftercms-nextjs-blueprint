@@ -5,6 +5,7 @@ import type { NavigationItem } from '@craftercms/models'
 import type { MetadataRoute } from 'next'
 import type { NextRequest, NextResponse } from 'next/server'
 import { CRAFTER_PREVIEW_COOKIE_NAME, CRAFTER_SITE_COOKIE_NAME } from '@/lib/constants'
+import { unstable_cache } from 'next/cache'
 
 /**
  * Recursively traverses all navigation items and their subItems.
@@ -63,4 +64,26 @@ export const setProxyCrafterCookies = (request: NextRequest, response: NextRespo
             cookieOptions
         )
     }
+}
+
+/**
+ * Conditionally wraps a function with `unstable_cache`.
+ * In delivery, applies server-side caching with the given key and TTL.
+ * In authoring, returns the function as-is so editors always see fresh content.
+ *
+ * @param fn - The async function to optionally cache.
+ * @param keyParts - Cache key segments forwarded to `unstable_cache`.
+ * @param options - Cache options including `revalidate` (TTL in seconds) and `tags` for on-demand invalidation.
+ * @returns The original function in authoring, or a cached version in delivery.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const withDeliveryCache = <T extends (...args: any[]) => Promise<unknown>>(
+    fn: T,
+    keyParts: string[],
+    options: { revalidate: number; tags: string[] }
+): T => {
+    if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery') {
+        return unstable_cache(fn, keyParts, options)
+    }
+    return fn
 }

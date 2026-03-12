@@ -1,4 +1,5 @@
 import { ClientEnv } from '@/env/client'
+import { CRAFTER_PREVIEW_COOKIE_NAME, CRAFTER_SITE_COOKIE_NAME } from '@/lib/constants'
 import type { ContentInstance, CrafterConfig } from '@craftercms/models'
 
 /**
@@ -12,8 +13,11 @@ export const getCrafterConfig = (): CrafterConfig => {
         'X-Crafter-Preview': ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN,
     }
 
+
+    console.log("getCrafterCurrentEnvironmentHost", getCrafterCurrentEnvironmentHost());
+
     return {
-        baseUrl: ClientEnv.NEXT_PUBLIC_CRAFTERCMS_HOST_NAME,
+        baseUrl: getCrafterCurrentEnvironmentHost(),
         site: ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME,
         fetchConfig: {
             mode: 'cors',
@@ -33,7 +37,7 @@ export const getCrafterConfig = (): CrafterConfig => {
  * @returns The model, unchanged.
  * @throws {Error} If `model.craftercms.id` is null or `model.message` starts with "No item found".
  */
-export function ensureModelFound(model: ContentInstance): ContentInstance {
+export const ensureModelFound = (model: ContentInstance): ContentInstance => {
     if (
         model.craftercms?.id === null ||
         (typeof model.message === 'string' &&
@@ -42,4 +46,34 @@ export function ensureModelFound(model: ContentInstance): ContentInstance {
         throw new Error(typeof model.message === 'string' ? model.message : 'Model not found')
     }
     return model
+}
+
+/**
+ * Returns the CrafterCMS host URL for the current environment, i.e., delivery or authoring.
+ *
+ * @returns The base URL of the active CrafterCMS environment.
+ */
+export const getCrafterCurrentEnvironmentHost = () => {
+    return ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery'
+        ? ClientEnv.NEXT_PUBLIC_CRAFTERCMS_DELIVERY_HOST_NAME
+        : ClientEnv.NEXT_PUBLIC_CRAFTERCMS_AUTHORING_HOST_NAME
+}
+
+/**
+ * Builds a CrafterCMS asset URL for the current environment.
+ * Appends the site name and preview token as query params so that
+ *
+ * @param path - The asset path (e.g. `/static-assets/images/hero.jpg`).
+ * @returns The absolute URL string with authentication query params.
+ */
+export const buildCrafterAssetUrl = (path: string): string => {
+    const url = new URL(path, getCrafterCurrentEnvironmentHost())
+
+    url.searchParams.set(CRAFTER_SITE_COOKIE_NAME, ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME)
+
+    if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'authoring') {
+        url.searchParams.set(CRAFTER_PREVIEW_COOKIE_NAME, ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN)
+    }
+
+    return url.toString()
 }

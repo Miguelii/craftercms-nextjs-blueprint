@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
     },
     images: {
         // As of Next.js v16, `dangerouslyAllowLocalIP` must be enabled when loading images from a local IP.
-        // Required in this blueprint because `NEXT_PUBLIC_CRAFTERCMS_HOST_NAME` points to a local IP.
+        // Required in this blueprint because CrafterCMS is running from a local IP.
         // In production, CrafterCMS is typically served behind a CDN or reverse proxy with a proper hostname, making this option unnecessary.
         // TODO remove.
         dangerouslyAllowLocalIP: true,

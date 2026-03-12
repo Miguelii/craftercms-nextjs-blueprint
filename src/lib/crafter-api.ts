@@ -5,17 +5,17 @@ import { firstValueFrom, map, switchMap, timeout } from 'rxjs'
 import type { ContentInstance, NavigationItem } from '@craftercms/models'
 import {
     GET_MODEL_CACHE_KEY_PREFIX,
-    GET_MODEL_CACHE_TIME_S,
+    GET_MODEL_DELIVERY_CACHE_TIME_S,
     GET_MODEL_TIMEOUT_MS,
     GET_NAV_CACHE_KEY_PREFIX,
-    GET_NAV_CACHE_TIME_S,
+    GET_NAV_DELIVERY_CACHE_TIME_S,
     GET_NAV_TIMEOUT_MS,
     ModelPathEnum,
     ModelWebUrlEnum,
 } from '@/lib/constants'
-import { unstable_cache } from 'next/cache'
 import { ensureModelFound, getCrafterConfig } from '@/lib/utils'
 import { Logger } from './logger'
+import { withDeliveryCache } from './utils.server'
 
 /**
  * Crafter data-fetching functions in this file are wrapped with two layers of cache:
@@ -39,17 +39,18 @@ import { Logger } from './logger'
  * those errors and return null without polluting the cache.
  *
 
- * -- Note about revalidate values:
+ * -- Note about environment-aware caching (`withDeliveryCache`):
  *
- * In a real CrafterCMS setup, two separate Next.js applications are typically deployed:
+ * In a real CrafterCMS setup, two separate Next.js builds are typically deployed:
  *
- * - Authoring app: connects to Preview. Content editors need to see their changes immediately, so `revalidate` must be 1 (lowest possible value).
+ * - Authoring build: connects to Preview. Content editors need to see their changes immediately,
+ *   so `withDeliveryCache` skips `unstable_cache` entirely and runs the function directly.
  *
- * - Delivery app: connects to published content. Content only changes when editor publishes, so it can be cached with a longer TTL.
- *   The optimal duration depends on how often content changes and how critical it is for users to see updates immediately.
+ * - Delivery build: connects to published content. Content only changes when an editor publishes,
+ *   so `withDeliveryCache` wraps the function with `unstable_cache` using a configurable TTL.
  *
- * This blueprint uses `revalidate: 1` since it targets the authoring/preview environment.
- *
+ * The environment is determined at build time via `NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT`.
+ * 
  * It may be a bit overkill, but the idea here is to really show the power that Next.js brings to CrafterCMS.
  **/
 
@@ -64,7 +65,7 @@ export const getModel = async (path: ModelPathEnum): Promise<ContentInstance | n
     }
 }
 const getModelFn = cache(
-    unstable_cache(
+    withDeliveryCache(
         async (path: ModelPathEnum): Promise<ContentInstance> => {
             return await firstValueFrom(
                 getItem(path, {
@@ -81,7 +82,7 @@ const getModelFn = cache(
             )
         },
         [GET_MODEL_CACHE_KEY_PREFIX],
-        { revalidate: GET_MODEL_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
+        { revalidate: GET_MODEL_DELIVERY_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
     )
 )
 
@@ -94,7 +95,7 @@ export const getModelByUrl = async (webUrl: ModelWebUrlEnum): Promise<ContentIns
     }
 }
 const getModelByUrlFn = cache(
-    unstable_cache(
+    withDeliveryCache(
         async (webUrl: ModelWebUrlEnum): Promise<ContentInstance> => {
             return await firstValueFrom(
                 urlTransform('renderUrlToStoreUrl', webUrl, baseConfig).pipe(
@@ -116,7 +117,7 @@ const getModelByUrlFn = cache(
             )
         },
         [GET_MODEL_CACHE_KEY_PREFIX],
-        { revalidate: GET_MODEL_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
+        { revalidate: GET_MODEL_DELIVERY_CACHE_TIME_S, tags: [GET_MODEL_CACHE_KEY_PREFIX] }
     )
 )
 
@@ -129,7 +130,7 @@ export const getNav = async (depth: number): Promise<NavigationItem[]> => {
     }
 }
 const getNavFn = cache(
-    unstable_cache(
+    withDeliveryCache(
         async (depth: number): Promise<NavigationItem[]> => {
             return await firstValueFrom(
                 getNavTree('/site/website', depth, '/', {
@@ -151,6 +152,6 @@ const getNavFn = cache(
             )
         },
         [GET_NAV_CACHE_KEY_PREFIX],
-        { revalidate: GET_NAV_CACHE_TIME_S, tags: [GET_NAV_CACHE_KEY_PREFIX] }
+        { revalidate: GET_NAV_DELIVERY_CACHE_TIME_S, tags: [GET_NAV_CACHE_KEY_PREFIX] }
     )
 )
