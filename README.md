@@ -16,7 +16,9 @@ This project is a migration of the official [CrafterCMS Next.js Blueprint](https
 
 ### 1. Install CrafterCMS
 
-See https://craftercms.com/download
+Download and install CrafterCMS from https://craftercms.com/download
+
+> **Note:** You only need the Authoring module to get started.
 
 ### 2. Create a new Studio project
 
@@ -57,10 +59,30 @@ The name of the site created in CrafterCMS Studio
 **NEXT_PUBLIC_PREVIEW_TOKEN**  
 The preview token generated in CrafterCMS Studio
 
-### 6. Run Development Server with pnpm
+### 6. Run the application
+
+CrafterCMS has two modules: **Authoring** and **Delivery**. To get started, you only need the Authoring module.
+
+#### Authoring
 
 ```bash
-pnpm dev
+# Development
+pnpm dev:authoring
+
+# Production build
+pnpm build:authoring
+```
+
+#### Delivery
+
+> **Note:** The blueprint is ready for both Authoring and Delivery environments. To use Delivery, install the CrafterCMS Delivery and follow the instructions in the `init-site.sh` script.
+
+```bash
+# Development
+pnpm dev:delivery
+
+# Production build
+pnpm build:delivery
 ```
 
 ## 🤝 Contributing

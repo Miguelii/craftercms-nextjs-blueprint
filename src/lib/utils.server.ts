@@ -76,7 +76,8 @@ export const setProxyCrafterCookies = (request: NextRequest, response: NextRespo
  * @param options - Cache options including `revalidate` (TTL in seconds) and `tags` for on-demand invalidation.
  * @returns The original function in authoring, or a cached version in delivery.
  */
-export const withDeliveryCache = <T extends (...args: any[]) => Promise<any>>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const withDeliveryCache = <T extends (...args: any[]) => Promise<unknown>>(
     fn: T,
     keyParts: string[],
     options: { revalidate: number; tags: string[] }

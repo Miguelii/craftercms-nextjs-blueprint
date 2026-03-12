@@ -23,10 +23,7 @@ export const AuthoringProvider = ({ children }: PropsWithChildren) => {
     })
 
     useEffect(() => {
-        if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery') {
-            setAppContext({ isAuthoring: false })
-            return
-        }
+        if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery') return
 
         fetchIsAuthoring(baseConfig)
             .then((res) => setAppContext({ isAuthoring: res }))

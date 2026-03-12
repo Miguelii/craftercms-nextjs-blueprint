@@ -13,6 +13,9 @@ export const getCrafterConfig = (): CrafterConfig => {
         'X-Crafter-Preview': ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN,
     }
 
+
+    console.log("getCrafterCurrentEnvironmentHost", getCrafterCurrentEnvironmentHost());
+
     return {
         baseUrl: getCrafterCurrentEnvironmentHost(),
         site: ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME,

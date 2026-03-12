@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev:authoring": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=authoring next dev",
+        "dev:delivery": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=delivery next dev",
         "build:authoring": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=authoring next build",
         "build:delivery": "NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT=delivery next build",
         "start": "next start",
@@ -22,6 +23,7 @@
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "rxjs": "^7.8.2",
+        "server-only": "^0.0.1",
         "zod": "^4.3.6"
     },
     "devDependencies": {
