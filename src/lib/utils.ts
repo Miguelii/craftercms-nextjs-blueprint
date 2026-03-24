@@ -49,6 +49,7 @@ export const ensureModelFound = (model: ContentInstance): ContentInstance => {
  * Returns the CrafterCMS host URL for the current environment, i.e., delivery or authoring.
  *
  * @returns The base URL of the active CrafterCMS environment.
+ * @public
  */
 export const getCrafterCurrentEnvironmentHost = () => {
     return ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'delivery'

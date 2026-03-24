@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { setProxyCrafterCookies } from '@/lib/utils.server'
 
-export async function proxy(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const requestHeaders = new Headers(request.headers)
 
     const response = NextResponse.next({

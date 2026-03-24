@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
+// oxlint-disable-next-line no-unused-vars - just to show an example of type page props
 export default async function Home(props: PageProps<'/'>) {
     const model = await getModel(ModelPathEnum.HOME_PAGE)
 
