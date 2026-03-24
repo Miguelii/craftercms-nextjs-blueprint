@@ -1,5 +1,23 @@
 {
-    "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "explorer.compactFolders": false,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "[typescript]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "js/ts.preferences.autoImportSpecifierExcludeRegexes": [
         "@craftercms/experience-builder/react/RenderField",
         "@craftercms/experience-builder/react/ExperienceBuilder"
     ]

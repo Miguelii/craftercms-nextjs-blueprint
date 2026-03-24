@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 type Props = LayoutProps<'/'>
 
-export default async function RootLayout({ children }: Props) {
+export default function RootLayout({ children }: Props) {
     // Promises are intentionally not awaited — both fetches start in parallel and are
     // passed down to child components, which resolve them independently.
     // This avoids blocking the layout render until both fetches complete.

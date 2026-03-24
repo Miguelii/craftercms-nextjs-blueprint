@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
         optimizePackageImports: [
             '@craftercms/experience-builder',
             '@craftercms/models',
-            '@craftercms/classes',
             '@craftercms/content',
             '@craftercms/studio-ui',
             'rxjs',

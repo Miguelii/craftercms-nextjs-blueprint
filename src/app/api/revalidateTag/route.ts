@@ -26,7 +26,7 @@ const TAG_MAP: Record<string, string[]> = {
  * (e.g. with somekind of secret / API key / External Auth) to prevent abuse — an attacker could otherwise
  * call it repeatedly to force constant cache invalidation, degrading performance.
  */
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
     try {
         const type = new URL(request.url).searchParams.get('type')
 

@@ -12,6 +12,19 @@ This project is a migration of the official [CrafterCMS Next.js Blueprint](https
 - Added dynamic sitemap generation (`sitemap.ts`)
 - Multiple code and performance improvements
 
+## Code Quality Tools
+
+This blueprint uses automated code quality tools to maintain consistency:
+
+- **vite-plus**: Unified toolchain that bundles linting, formatting and testing:
+    - **oxlint**: Rust-based linter (replaces ESLint)
+    - **oxfmt**: Rust-based code formatter (replaces Prettier)
+    - **Vitest**: Unit testing
+- **Knip**: Detects unused files, exports, and dependencies
+- **TypeScript**: Provides type safety
+- **Husky**: Runs pre-commit hooks automatically
+- **SonarQube Cloud**: Continuous code analysis for bugs, vulnerabilities, and code smells
+
 ## Getting Started
 
 ### 1. Install CrafterCMS
