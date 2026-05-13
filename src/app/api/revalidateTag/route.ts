@@ -1,4 +1,3 @@
-import { Logger } from '@/lib/logger'
 import { GET_MODEL_CACHE_KEY_PREFIX, GET_NAV_CACHE_KEY_PREFIX } from '@/lib/constants'
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
@@ -46,7 +45,7 @@ export function GET(request: NextRequest) {
 
         return NextResponse.json({ revalidated: true, type, tags })
     } catch (error) {
-        Logger.error('tryCatch Error in revalidateTag API', error)
+        console.error('tryCatch Error in revalidateTag API', error)
         return NextResponse.json({ error: 'Failed to revalidate' }, { status: 500 })
     }
 }
