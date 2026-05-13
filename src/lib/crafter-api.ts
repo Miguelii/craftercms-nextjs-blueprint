@@ -14,7 +14,6 @@ import {
     ModelWebUrlEnum,
 } from '@/lib/constants'
 import { ensureModelFound, getCrafterConfig } from '@/lib/utils'
-import { Logger } from './logger'
 import { withDeliveryCache } from './utils.server'
 
 /**
@@ -60,7 +59,7 @@ export const getModel = async (path: ModelPathEnum): Promise<ContentInstance | n
     try {
         return await getModelFn(path)
     } catch (error) {
-        Logger.error('[tryCatch Error] in getModel', error)
+        console.error('[tryCatch Error] in getModel', error)
         return null
     }
 }
@@ -90,7 +89,7 @@ export const getModelByUrl = async (webUrl: ModelWebUrlEnum): Promise<ContentIns
     try {
         return await getModelByUrlFn(webUrl)
     } catch (error) {
-        Logger.error('[tryCatch Error] in getModelByUrl', error)
+        console.error('[tryCatch Error] in getModelByUrl', error)
         return null
     }
 }
@@ -125,7 +124,7 @@ export const getNav = async (depth: number): Promise<NavigationItem[]> => {
     try {
         return await getNavFn(depth)
     } catch (error) {
-        Logger.error('[tryCatch Error] in getNav', error)
+        console.error('[tryCatch Error] in getNav', error)
         return []
     }
 }
