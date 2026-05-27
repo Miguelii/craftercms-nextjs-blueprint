@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     title: 'CrafterCMS Next.js Blueprint',
     description: 'Created by @miguelgoncalves.dev',
-    authors: [{ name: 'Miguel Gonçalves', url: 'https://www.miguelgoncalves.dev' }],
+    authors: [{ name: 'Miguel Gonçalves', url: 'https://miguel-goncalves.pt' }],
 }
 
 type Props = LayoutProps<'/'>
