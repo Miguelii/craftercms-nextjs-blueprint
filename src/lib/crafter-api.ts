@@ -29,7 +29,7 @@ import { withDeliveryCache } from './utils.server'
  *    one render (e.g. from layout and page), it only executes once per request.
  *
  *
- * -- IMPORTANT note about unstable_cache:
+ * -- Note 1. unstable_cache --
  *
  * unstable_cache has a tricky bug: if the function returns null (or any falsy value),
  * that result gets cached and all subsequent requests will receive it until revalidation.
@@ -37,8 +37,8 @@ import { withDeliveryCache } from './utils.server'
  * so unstable_cache never stores a failed response. That wrapper exists solely to catch
  * those errors and return null without polluting the cache.
  *
-
- * -- Note about environment-aware caching (`withDeliveryCache`):
+ *
+ * -- Note 2. environment-aware caching (`withDeliveryCache`) --
  *
  * In a real CrafterCMS setup, two separate Next.js builds are typically deployed:
  *
@@ -49,8 +49,14 @@ import { withDeliveryCache } from './utils.server'
  *   so `withDeliveryCache` wraps the function with `unstable_cache` using a configurable TTL.
  *
  * The environment is determined at build time via `NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT`.
- * 
- * It may be a bit overkill, but the idea here is to really show the power that Next.js brings to CrafterCMS.
+ *
+ *
+ * -- Note 3. "use cache" directive --
+ *
+ * As of Next.js 16, `unstable_cache` is replaced by the `"use cache"` directive.
+ * The new directive is a compile-time, so it can't be applied through this generic `withDeliveryCache` wrapper — each
+ * function would need the directive inlined (with its own `cacheTag`/`cacheLife`).
+ * Wont migrate to it until the `unstable_cache` stops being supported, as it is simpler to use in this blueprint.
  **/
 
 const baseConfig = getCrafterConfig()
