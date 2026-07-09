@@ -64,13 +64,17 @@ export const getCrafterCurrentEnvironmentHost = () => {
  * @param path - The asset path (e.g. `/static-assets/images/hero.jpg`).
  * @returns The absolute URL string with authentication query params.
  */
-export const buildCrafterAssetUrl = (path: string): string => {
+export const buildCrafterAssetUrl = (path: string, timestamp: string | null = null): string => {
     const url = new URL(path, getCrafterCurrentEnvironmentHost())
 
     url.searchParams.set(CRAFTER_SITE_COOKIE_NAME, ClientEnv.NEXT_PUBLIC_CRAFTERCMS_SITE_NAME)
 
     if (ClientEnv.NEXT_PUBLIC_CRAFTERCMS_ENVIRONMENT === 'authoring') {
         url.searchParams.set(CRAFTER_PREVIEW_COOKIE_NAME, ClientEnv.NEXT_PUBLIC_PREVIEW_TOKEN)
+    }
+
+    if (timestamp) {
+        url.searchParams.set('v', timestamp)
     }
 
     return url.toString()

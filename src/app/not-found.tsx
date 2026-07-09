@@ -17,7 +17,7 @@ export default function NotFound() {
 
             <div className="flex items-center gap-8 flex-wrap justify-center">
                 <Image
-                    src="/next.svg"
+                    src="/images/next.svg"
                     alt="Next.js"
                     width={394}
                     height={80}
@@ -25,7 +25,7 @@ export default function NotFound() {
                 />
                 <span className="text-blue-600 text-xl select-none">&times;</span>
                 <Image
-                    src="/Craftercms-logo.svg"
+                    src="/images/Craftercms-logo.svg"
                     alt="CrafterCMS"
                     width={850}
                     height={207}

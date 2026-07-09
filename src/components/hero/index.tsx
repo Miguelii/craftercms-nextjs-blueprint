@@ -11,6 +11,11 @@ type Props = {
 }
 
 export function Hero({ model }: Props) {
+    // The model modified date is used to version the image URL
+    // So whenever the content changes the URL changes too, busting any cached copies
+    const lastUpdateAt = model?.craftercms?.dateModified ?? null
+    const lastUpdateAtTimestamp = lastUpdateAt ? new Date(lastUpdateAt).getTime().toString() : null
+
     return (
         <Model
             model={model}
@@ -36,7 +41,7 @@ export function Hero({ model }: Props) {
                             height={400}
                             sizes="100vw"
                             className="object-cover w-full h-full"
-                            src={buildCrafterAssetUrl(imgSrc)}
+                            src={buildCrafterAssetUrl(imgSrc, lastUpdateAtTimestamp)}
                         />
                     )
                 }}
